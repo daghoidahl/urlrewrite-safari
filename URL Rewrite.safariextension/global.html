@@ -10,13 +10,14 @@
 			var settings = safari.extension.settings;
 			for (var i = 1; typeof settings['sourceUrl' + i] != 'undefined'; i++) {
 				var sourceUrl = settings['sourceUrl' + i];
+				var sourceReg = new RegExp(sourceUrl);
 				var destinationUrl = settings['destinationUrl' + i];
 
 				if (sourceUrl == '') {
 					continue;
 				}
 
-				if (event.url.indexOf(sourceUrl) == 0) {
+				if (event.url.match(sourceReg)) {
 					var newUrl = destinationUrl + event.url.slice(sourceUrl.length);
 					// console.log('rewriting', event.url, 'to', newUrl);
 					
